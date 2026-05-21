@@ -1,0 +1,29 @@
+{
+  "campaign_id": "TEMPLATE-replace-with-kebab-case-id",
+  "client": "TEMPLATE-client-name",
+  "sprint_id": "TEMPLATE-YYYY-Www",
+  "cadence": "1-week",
+  "status": "draft",
+  "started_at": null,
+  "story_bible_locked_at": null,
+  "visual_system_locked_at": null,
+  "launched_at": null,
+  "retro_at": null,
+  "prompt_versions": {
+    "showrunner": "v1",
+    "dp": "v1",
+    "motion": "v1",
+    "cgi": "v1",
+    "art-director": "v1",
+    "channel-strategist": "v1",
+    "analyst": "v1"
+  },
+  "channels": [],
+  "languages": [],
+  "kpis": {
+    "leading": [],
+    "lagging": [],
+    "targets": {}
+  },
+  "notes": ""
+}

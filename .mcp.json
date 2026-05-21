@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "higgsfield": {
+      "type": "http",
+      "url": "https://mcp.higgsfield.ai/mcp",
+      "description": "Higgsfield MCP — cinematic image and video generation. Models: Seedance 2.0, Soul 2.0, Veo 3.1, Kling 3.0, Sora 2, Nano Banana Pro, Flux 2, Seedream, GPT Image 2. Auth via OAuth on first connect."
+    },
+    "meta-ads": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@meta/ads-mcp-server"],
+      "env": {
+        "META_ADS_ACCESS_TOKEN": "${META_ADS_ACCESS_TOKEN}"
+      },
+      "description": "Meta Ads MCP — campaign performance data, creative-level metrics, in-flight optimization."
+    },
+    "google-drive": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@google/drive-mcp-server"],
+      "env": {
+        "GOOGLE_DRIVE_OAUTH_TOKEN": "${GOOGLE_DRIVE_OAUTH_TOKEN}"
+      },
+      "description": "Google Drive MCP — client deliverable sync, asset handoff, reference ingestion."
+    }
+  }
+}

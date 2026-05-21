@@ -1,0 +1,21 @@
+node_modules/
+.env
+.env.local
+*.log
+.DS_Store
+
+# Temp renders
+**/outputs/.tmp/
+**/outputs/preview-*
+
+# HyperFrames build artifacts
+.hyperframes-cache/
+
+# Local Claude Code overrides
+.claude/settings.local.json
+
+# Client campaigns are private — only the _template ships with the OS.
+# To share a sample campaign publicly, allowlist it explicitly below.
+campaigns/*
+!campaigns/_template/
+!campaigns/.gitkeep
