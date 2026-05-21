@@ -6,6 +6,18 @@ You are operating inside an AI-native creative agency operating system. This fil
 
 Campaign OS is a structured repository for producing cinematic AI-native omnichannel campaigns on a 1-week sprint cadence. Each campaign is treated as a system of reusable pieces (Campaign Asset Library / CAL), not as a monolithic film.
 
+## Workspace configuration
+
+The framework (this repo) holds agents, skills, playbooks, and the `_template`. Actual client campaigns can live anywhere — typically in a private per-client repo.
+
+- **`CAMPAIGN_OS_CAMPAIGNS_DIR`** (env var) — absolute path to where new campaigns should be scaffolded. If set, every `campaigns/<id>/` path in this OS resolves to `$CAMPAIGN_OS_CAMPAIGNS_DIR/<id>/`. If unset, paths resolve to `./campaigns/<id>/` (in-repo, the framework default).
+
+When a command needs to read or write a campaign, follow this resolution order:
+1. If `CAMPAIGN_OS_CAMPAIGNS_DIR` is set and the campaign exists there → use it.
+2. Otherwise, fall back to `./campaigns/<id>/`.
+
+The template is always sourced from this repo's `./campaigns/_template/` regardless of where the new campaign is scaffolded.
+
 Production stack:
 - **Higgsfield MCP** — cinematic image/video generation (Seedance 2.0 is the primary model for narrative shots, Soul 2.0 for character consistency, Nano Banana Pro for product hero stills)
 - **HyperFrames** — deterministic HTML-to-MP4 rendering for branded wrappers, channel adaptations, and structured/data-driven video

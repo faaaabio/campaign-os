@@ -7,6 +7,8 @@ argument-hint: [campaign-id, optional]
 
 Read live performance data and produce a diagnostic for in-flight decisions.
 
+> **Path resolution**: every `campaigns/{id}/...` reference below resolves to `$CAMPAIGN_OS_CAMPAIGNS_DIR/{id}/...` if the env var is set, otherwise to the literal `./campaigns/{id}/...`. See `CLAUDE.md → Workspace configuration`.
+
 ## Steps
 
 1. Resolve campaign.

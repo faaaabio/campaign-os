@@ -7,6 +7,8 @@ argument-hint: [campaign-id, optional]
 
 Have the DP read the story bible and produce per-beat prompt files.
 
+> **Path resolution**: every `campaigns/{id}/...` reference below resolves to `$CAMPAIGN_OS_CAMPAIGNS_DIR/{id}/...` if the env var is set, otherwise to the literal `./campaigns/{id}/...`. See `CLAUDE.md → Workspace configuration`.
+
 ## Steps
 
 1. Resolve campaign per `$ARGUMENTS` or active campaign.

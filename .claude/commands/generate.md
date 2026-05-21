@@ -7,6 +7,8 @@ argument-hint: <beat-id> [variant-letter, optional, defaults to a]
 
 Execute the Seedance 2.0 generation for a single beat through Higgsfield MCP.
 
+> **Path resolution**: every `campaigns/{id}/...` reference below resolves to `$CAMPAIGN_OS_CAMPAIGNS_DIR/{id}/...` if the env var is set, otherwise to the literal `./campaigns/{id}/...`. See `CLAUDE.md → Workspace configuration`.
+
 ## Steps
 
 1. Parse arguments:

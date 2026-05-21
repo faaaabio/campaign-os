@@ -121,9 +121,30 @@ npm install -g hyperframes
 npx hyperframes --version
 ```
 
-## Privacy: real campaigns are git-ignored
+## Multi-client setup
 
-`.gitignore` excludes everything under `campaigns/` except `_template/`. Real client work stays local by default. If you want to publish a sample campaign, allowlist it explicitly:
+The framework holds agents, skills, and the `_template`. Real client work lives in private per-client repos. Point Campaign OS at the active client's folder via `CAMPAIGN_OS_CAMPAIGNS_DIR`:
+
+```bash
+# In your .env (this repo)
+CAMPAIGN_OS_CAMPAIGNS_DIR=/Users/you/Documents/<client>/campaigns
+```
+
+When that env var is set, `/sprint-start <id>` scaffolds the new campaign into `$CAMPAIGN_OS_CAMPAIGNS_DIR/<id>/` instead of `./campaigns/<id>/`. All other commands (`/brief`, `/shot-list`, `/generate`, `/adapt`, `/measure`, `/retro`) follow the same resolution. The template itself is always sourced from this repo.
+
+Typical layout:
+
+```
+~/Documents/
+├── campaign-os/                    # the framework (this repo, public)
+│   ├── agents/, skills/, ...
+│   └── campaigns/_template/
+└── <client>/campaigns/             # private per-client repo
+    ├── .git → github.com/.../<client>-videos
+    └── <campaign-id>/              # scaffolded by /sprint-start
+```
+
+If `CAMPAIGN_OS_CAMPAIGNS_DIR` is unset, campaigns fall back to `./campaigns/` inside this repo. The `.gitignore` excludes everything under `campaigns/` except `_template/`, so in-repo client work stays local unless you allowlist a sample campaign explicitly:
 
 ```gitignore
 campaigns/*

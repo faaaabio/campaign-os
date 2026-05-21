@@ -7,6 +7,8 @@ argument-hint: [campaign-id, optional — defaults to active campaign]
 
 Invoke the Showrunner to produce `story-bible.md` from the brief.
 
+> **Path resolution**: every `campaigns/{id}/...` reference below resolves to `$CAMPAIGN_OS_CAMPAIGNS_DIR/{id}/...` if the env var is set, otherwise to the literal `./campaigns/{id}/...` in this repo. See `CLAUDE.md → Workspace configuration`.
+
 ## Steps
 
 1. Determine the target campaign:

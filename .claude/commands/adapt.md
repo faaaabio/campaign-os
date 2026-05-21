@@ -7,6 +7,8 @@ argument-hint: <beat-id> --channels=<list> [--langs=<list>]
 
 Run channel adaptations via HyperFrames for an approved master.
 
+> **Path resolution**: every `campaigns/{id}/...` reference below resolves to `$CAMPAIGN_OS_CAMPAIGNS_DIR/{id}/...` if the env var is set, otherwise to the literal `./campaigns/{id}/...`. See `CLAUDE.md → Workspace configuration`.
+
 ## Steps
 
 1. Parse arguments:
