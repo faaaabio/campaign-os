@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Campaign OS — AI-native creative agency, in a repo</title>
+    <meta
+      name="description"
+      content="An AI-native creative agency operating system. Cinematic omnichannel campaigns in 1-week sprints. Runs on Claude Code via terminal."
+    />
+    <meta property="og:title" content="Campaign OS" />
+    <meta
+      property="og:description"
+      content="AI-native creative agency operating system. Cinematic campaigns in 1-week sprints."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%97%89%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="nav">
+      <a class="brand" href="/">
+        <span class="brand-dot"></span>
+        <span class="brand-name">campaign-os</span>
+      </a>
+      <nav>
+        <a href="#how">How it works</a>
+        <a href="#agents">Agents</a>
+        <a href="#sprint">Sprint</a>
+        <a href="links.html">Links</a>
+        <a class="ghost" href="https://github.com/faaaabio/campaign-os" target="_blank" rel="noopener">GitHub →</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">AI-native creative agency operating system</p>
+        <h1>
+          A creative studio<br />
+          that fits in <span class="accent">a repo</span>.
+        </h1>
+        <p class="lede">
+          Cinematic omnichannel campaigns produced in 1-week sprints. Powered by Claude Code,
+          Higgsfield (Seedance 2.0 + Soul 2.0), HyperFrames, Meta Ads and Google Drive — all wired
+          through MCP. Every render is traceable from prompt → channel cut → performance.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/faaaabio/campaign-os" target="_blank" rel="noopener">
+            Open the repo
+          </a>
+          <a class="btn" href="links.html">Browse all links</a>
+        </div>
+
+        <pre class="codeblock" aria-label="Quick start">
+<span class="c">// boot the OS</span>
+git clone https://github.com/faaaabio/campaign-os.git
+cd campaign-os
+cp .env.example .env
+git lfs install
+npm install -g hyperframes
+claude
+
+<span class="c">// kick off a sprint</span>
+/sprint-start cliente-x-launch-q3</pre>
+      </section>
+
+      <section class="grid" id="how">
+        <h2>What's inside</h2>
+        <div class="cards">
+          <a class="card" href="links.html#agents">
+            <span class="num">7</span>
+            <h3>Agents</h3>
+            <p>Showrunner, DP, Motion, CGI, Art Director, Channel Strategist, Analyst.</p>
+          </a>
+          <a class="card" href="links.html#skills">
+            <span class="num">7</span>
+            <h3>Skills</h3>
+            <p>MCSLA, Soul consistency, HyperFrames, story bible, retro, brand safety.</p>
+          </a>
+          <a class="card" href="links.html#commands">
+            <span class="num">7</span>
+            <h3>Slash commands</h3>
+            <p>/sprint-start, /brief, /shot-list, /generate, /adapt, /measure, /retro.</p>
+          </a>
+          <a class="card" href="links.html#playbooks">
+            <span class="num">4</span>
+            <h3>Playbooks</h3>
+            <p>Methodology, sprint mechanics, tagging schema, brand safety gate.</p>
+          </a>
+          <a class="card" href="links.html#cal">
+            <span class="num">CAL</span>
+            <h3>Asset Library</h3>
+            <p>Standardized campaign skeleton — world, characters, beats, wrapper, outputs.</p>
+          </a>
+          <a class="card" href="links.html#prompts">
+            <span class="num">v.n</span>
+            <h3>Versioned prompts</h3>
+            <p>Retro at D7 forks the next version. Performance joins back to v{n}.</p>
+          </a>
+        </div>
+      </section>
+
+      <section id="agents" class="band">
+        <h2>The 7 agents</h2>
+        <p class="lede small">
+          Each agent is a system prompt under <code>agents/</code>. Loaded on demand by the slash
+          commands that own them.
+        </p>
+        <table class="roles">
+          <thead>
+            <tr><th>Agent</th><th>Role</th><th>Invoked by</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>showrunner</strong></td><td>Owns narrative + story bible. Writes AI-native scripts.</td><td><code>/brief</code></td></tr>
+            <tr><td><strong>dp</strong></td><td>Director of Photography. Story beats → MCSLA Seedance prompts.</td><td><code>/shot-list</code>, <code>/generate</code></td></tr>
+            <tr><td><strong>motion</strong></td><td>HyperFrames specialist. Wrappers, transitions, channel adaptations.</td><td><code>/adapt</code></td></tr>
+            <tr><td><strong>cgi</strong></td><td>3D / CGI specialist for product viz and environments.</td><td>direct mention</td></tr>
+            <tr><td><strong>art-director</strong></td><td>Visual system: KV, type, color, logo behavior.</td><td>direct mention</td></tr>
+            <tr><td><strong>channel-strategist</strong></td><td>Maps story to channels via Hero / Hub / Help / Hygiene.</td><td><code>/sprint-start</code></td></tr>
+            <tr><td><strong>analyst</strong></td><td>Meta Ads MCP joins → attribution → retro.</td><td><code>/measure</code>, <code>/retro</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="sprint" class="band alt">
+        <h2>The 1-week sprint</h2>
+        <ol class="sprint">
+          <li><span class="day">D1</span><div><strong>Brief intake.</strong> Story bible + channel plan drafted.</div></li>
+          <li><span class="day">D2</span><div><strong>Shot list.</strong> DP writes Seedance prompts; first keyframes via Soul 2.0.</div></li>
+          <li><span class="day">D3</span><div><strong>Generate.</strong> Hero beats rendered via Higgsfield MCP; tagged + stored.</div></li>
+          <li><span class="day">D4</span><div><strong>Adapt.</strong> Channel variants via HyperFrames. Brand-safety gate.</div></li>
+          <li><span class="day">D5</span><div><strong>Launch.</strong> Instrumented from minute 0.</div></li>
+          <li><span class="day">D6</span><div><strong>Measure.</strong> Cut + scale variants from in-flight data.</div></li>
+          <li><span class="day">D7</span><div><strong>Retro.</strong> Each agent forks <code>prompts/{agent}/v{n+1}.md</code>.</div></li>
+        </ol>
+      </section>
+
+      <section class="band tagging">
+        <h2>Every render is traceable</h2>
+        <p class="lede small">File tagging convention is mandatory — performance joins back to the exact prompt version that produced the winning cut.</p>
+        <pre class="codeblock big">{campaign-id}_{beat-id}_{channel}_{format}_{variant}_{model}_v{prompt-version}.mp4
+
+<span class="c">// example</span>
+nike-q3-launch_b03_tiktok_9x16_a_seedance2_v1.2.mp4</pre>
+      </section>
+
+      <section class="band cta-band">
+        <h2>Run it</h2>
+        <p class="lede small">
+          Clone the repo, install Claude Code, fill in your API keys. The kernel
+          (<code>CLAUDE.md</code>) loads automatically.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/faaaabio/campaign-os" target="_blank" rel="noopener">Clone Campaign OS</a>
+          <a class="btn" href="https://claude.com/claude-code" target="_blank" rel="noopener">Get Claude Code</a>
+          <a class="btn" href="links.html">All resources →</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <span class="brand-dot small"></span>
+        <span>campaign-os · MIT</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/faaaabio/campaign-os" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/faaaabio/campaign-os/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+        <a href="links.html">Links</a>
+      </div>
+    </footer>
+  </body>
+</html>

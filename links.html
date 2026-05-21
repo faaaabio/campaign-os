@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Campaign OS — Links</title>
+    <meta name="description" content="Every piece of Campaign OS — agents, skills, slash commands, playbooks, templates." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%97%89%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="links-page">
+    <header class="nav">
+      <a class="brand" href="/">
+        <span class="brand-dot"></span>
+        <span class="brand-name">campaign-os</span>
+      </a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a class="ghost" href="https://github.com/faaaabio/campaign-os" target="_blank" rel="noopener">GitHub →</a>
+      </nav>
+    </header>
+
+    <main class="links-main">
+      <section class="links-hero">
+        <p class="eyebrow">Index</p>
+        <h1>Everything in the OS.</h1>
+        <p class="lede">
+          Direct links into the <a href="https://github.com/faaaabio/campaign-os" target="_blank" rel="noopener">faaaabio/campaign-os</a>
+          repository. Read the kernel first, then jump to the part you need.
+        </p>
+      </section>
+
+      <nav class="toc" aria-label="Sections">
+        <a href="#start">Start here</a>
+        <a href="#agents">Agents</a>
+        <a href="#skills">Skills</a>
+        <a href="#commands">Commands</a>
+        <a href="#playbooks">Playbooks</a>
+        <a href="#cal">CAL</a>
+        <a href="#prompts">Prompts</a>
+        <a href="#stack">Stack</a>
+      </nav>
+
+      <section id="start" class="link-group">
+        <h2>Start here</h2>
+        <ul class="link-list">
+          <li>
+            <a href="https://github.com/faaaabio/campaign-os" target="_blank" rel="noopener">
+              <span class="key">repo</span>
+              <span class="title">GitHub · faaaabio/campaign-os</span>
+              <span class="sub">The whole thing. Star it, clone it, fork it.</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/faaaabio/campaign-os/blob/main/README.md" target="_blank" rel="noopener">
+              <span class="key">README.md</span>
+              <span class="title">Quick start</span>
+              <span class="sub">Install, boot Claude Code, run the first sprint.</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/faaaabio/campaign-os/blob/main/CLAUDE.md" target="_blank" rel="noopener">
+              <span class="key">CLAUDE.md</span>
+              <span class="title">The kernel</span>
+              <span class="sub">Read this to understand how the OS thinks.</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/faaaabio/campaign-os/blob/main/.env.example" target="_blank" rel="noopener">
+              <span class="key">.env.example</span>
+              <span class="title">API keys + workspace config</span>
+              <span class="sub">Higgsfield, Meta Ads, Google Drive. Per-client campaigns dir.</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/faaaabio/campaign-os/blob/main/.mcp.json" target="_blank" rel="noopener">
+              <span class="key">.mcp.json</span>
+              <span class="title">MCP wiring</span>
+              <span class="sub">Higgsfield · Meta Ads · Google Drive bound to Claude Code.</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section id="agents" class="link-group">
+        <h2>Agents · system prompts</h2>
+        <ul class="link-list two-col">
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/agents/showrunner.md" target="_blank" rel="noopener"><span class="key">01</span><span class="title">showrunner</span><span class="sub">Narrative · story bible · AI-native scripts.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/agents/dp.md" target="_blank" rel="noopener"><span class="key">02</span><span class="title">dp</span><span class="sub">Director of Photography · MCSLA Seedance prompts.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/agents/motion.md" target="_blank" rel="noopener"><span class="key">03</span><span class="title">motion</span><span class="sub">Editorial · HyperFrames · channel adaptations.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/agents/cgi.md" target="_blank" rel="noopener"><span class="key">04</span><span class="title">cgi</span><span class="sub">3D / CGI · product viz · environments.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/agents/art-director.md" target="_blank" rel="noopener"><span class="key">05</span><span class="title">art-director</span><span class="sub">Visual system · KV · type · color · logo.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/agents/channel-strategist.md" target="_blank" rel="noopener"><span class="key">06</span><span class="title">channel-strategist</span><span class="sub">Hero / Hub / Help / Hygiene · cadence.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/agents/analyst.md" target="_blank" rel="noopener"><span class="key">07</span><span class="title">analyst</span><span class="sub">Meta Ads MCP · attribution · retro.</span></a></li>
+        </ul>
+      </section>
+
+      <section id="skills" class="link-group">
+        <h2>Skills · loaded on demand</h2>
+        <ul class="link-list two-col">
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/skills/seedance-prompt/SKILL.md" target="_blank" rel="noopener"><span class="key">SKILL</span><span class="title">seedance-prompt</span><span class="sub">MCSLA formula · modes · audio sync.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/skills/soul-character/SKILL.md" target="_blank" rel="noopener"><span class="key">SKILL</span><span class="title">soul-character</span><span class="sub">Soul 2.0 · face filter workarounds · Soul ID sheets.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/skills/hyperframes-template/SKILL.md" target="_blank" rel="noopener"><span class="key">SKILL</span><span class="title">hyperframes-template</span><span class="sub">HTML composition templates per channel.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/skills/story-bible/SKILL.md" target="_blank" rel="noopener"><span class="key">SKILL</span><span class="title">story-bible</span><span class="sub">Structure + AI-native narrative checklist.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/skills/mcsla-formula/SKILL.md" target="_blank" rel="noopener"><span class="key">SKILL</span><span class="title">mcsla-formula</span><span class="sub">Model · Camera · Subject · Look · Action examples.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/skills/retro-doc/SKILL.md" target="_blank" rel="noopener"><span class="key">SKILL</span><span class="title">retro-doc</span><span class="sub">D7 retro template + prompt versioning rules.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/skills/brand-safety-check/SKILL.md" target="_blank" rel="noopener"><span class="key">SKILL</span><span class="title">brand-safety-check</span><span class="sub">Pre-launch checklist · face clearance · IP · claims.</span></a></li>
+        </ul>
+      </section>
+
+      <section id="commands" class="link-group">
+        <h2>Slash commands · sprint verbs</h2>
+        <ul class="link-list two-col">
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/.claude/commands/sprint-start.md" target="_blank" rel="noopener"><span class="key">D1</span><span class="title">/sprint-start</span><span class="sub">Scaffold CAL from _template/, open brief.md.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/.claude/commands/brief.md" target="_blank" rel="noopener"><span class="key">D1</span><span class="title">/brief</span><span class="sub">Showrunner ingests brief → story-bible.md + characters.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/.claude/commands/shot-list.md" target="_blank" rel="noopener"><span class="key">D2</span><span class="title">/shot-list</span><span class="sub">DP writes Seedance prompts to beats/.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/.claude/commands/generate.md" target="_blank" rel="noopener"><span class="key">D3</span><span class="title">/generate</span><span class="sub">Higgsfield MCP renders the beat, tags the output.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/.claude/commands/adapt.md" target="_blank" rel="noopener"><span class="key">D4</span><span class="title">/adapt</span><span class="sub">HyperFrames produces channel variants.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/.claude/commands/measure.md" target="_blank" rel="noopener"><span class="key">D6</span><span class="title">/measure</span><span class="sub">Meta Ads MCP joins to asset tags → cut/scale.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/.claude/commands/retro.md" target="_blank" rel="noopener"><span class="key">D7</span><span class="title">/retro</span><span class="sub">Retro doc · each agent forks v{n+1}.md.</span></a></li>
+        </ul>
+      </section>
+
+      <section id="playbooks" class="link-group">
+        <h2>Playbooks · methodology</h2>
+        <ul class="link-list two-col">
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/playbooks/methodology.md" target="_blank" rel="noopener"><span class="key">PB</span><span class="title">methodology.md</span><span class="sub">The 6 AI-native methods + full CAL spec.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/playbooks/sprint-1w.md" target="_blank" rel="noopener"><span class="key">PB</span><span class="title">sprint-1w.md</span><span class="sub">Day-by-day operations across the week.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/playbooks/ai-native-principles.md" target="_blank" rel="noopener"><span class="key">PB</span><span class="title">ai-native-principles.md</span><span class="sub">Narrative philosophy. AI as meaning, not just production.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/playbooks/tagging-schema.md" target="_blank" rel="noopener"><span class="key">PB</span><span class="title">tagging-schema.md</span><span class="sub">File naming + metadata convention.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/blob/main/playbooks/brand-safety-gate.md" target="_blank" rel="noopener"><span class="key">PB</span><span class="title">brand-safety-gate.md</span><span class="sub">Pre-launch non-negotiable checklist.</span></a></li>
+        </ul>
+      </section>
+
+      <section id="cal" class="link-group">
+        <h2>Campaign Asset Library · template</h2>
+        <ul class="link-list">
+          <li>
+            <a href="https://github.com/faaaabio/campaign-os/tree/main/campaigns/_template" target="_blank" rel="noopener">
+              <span class="key">_template/</span>
+              <span class="title">CAL skeleton</span>
+              <span class="sub">manifest.json · brief.md · world/ · characters/ · beats/ · product/ · wrapper/ · brand/ · outputs/. Copied on /sprint-start.</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/faaaabio/campaign-os/tree/main/measurement" target="_blank" rel="noopener">
+              <span class="key">measurement/</span>
+              <span class="title">Dashboards + reports</span>
+              <span class="sub">Where /measure writes attribution and in-flight optimization output.</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section id="prompts" class="link-group">
+        <h2>Versioned agent prompts</h2>
+        <ul class="link-list two-col">
+          <li><a href="https://github.com/faaaabio/campaign-os/tree/main/prompts/showrunner" target="_blank" rel="noopener"><span class="key">v.n</span><span class="title">prompts/showrunner</span><span class="sub">All versions across sprints.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/tree/main/prompts/dp" target="_blank" rel="noopener"><span class="key">v.n</span><span class="title">prompts/dp</span><span class="sub">All versions across sprints.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/tree/main/prompts/motion" target="_blank" rel="noopener"><span class="key">v.n</span><span class="title">prompts/motion</span><span class="sub">All versions across sprints.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/tree/main/prompts/cgi" target="_blank" rel="noopener"><span class="key">v.n</span><span class="title">prompts/cgi</span><span class="sub">All versions across sprints.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/tree/main/prompts/art-director" target="_blank" rel="noopener"><span class="key">v.n</span><span class="title">prompts/art-director</span><span class="sub">All versions across sprints.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/tree/main/prompts/channel-strategist" target="_blank" rel="noopener"><span class="key">v.n</span><span class="title">prompts/channel-strategist</span><span class="sub">All versions across sprints.</span></a></li>
+          <li><a href="https://github.com/faaaabio/campaign-os/tree/main/prompts/analyst" target="_blank" rel="noopener"><span class="key">v.n</span><span class="title">prompts/analyst</span><span class="sub">All versions across sprints.</span></a></li>
+        </ul>
+      </section>
+
+      <section id="stack" class="link-group">
+        <h2>Production stack · external</h2>
+        <ul class="link-list two-col">
+          <li><a href="https://claude.com/claude-code" target="_blank" rel="noopener"><span class="key">↗</span><span class="title">Claude Code</span><span class="sub">The runtime. The OS boots inside it.</span></a></li>
+          <li><a href="https://higgsfield.ai" target="_blank" rel="noopener"><span class="key">↗</span><span class="title">Higgsfield</span><span class="sub">Seedance 2.0 · Soul 2.0 · Nano Banana Pro.</span></a></li>
+          <li><a href="https://www.npmjs.com/package/hyperframes" target="_blank" rel="noopener"><span class="key">↗</span><span class="title">HyperFrames</span><span class="sub">Deterministic HTML-to-MP4 renderer.</span></a></li>
+          <li><a href="https://developers.facebook.com/docs/marketing-apis/" target="_blank" rel="noopener"><span class="key">↗</span><span class="title">Meta Ads API</span><span class="sub">Performance data via MCP.</span></a></li>
+          <li><a href="https://developers.google.com/drive" target="_blank" rel="noopener"><span class="key">↗</span><span class="title">Google Drive API</span><span class="sub">Client deliverables + asset sync via MCP.</span></a></li>
+          <li><a href="https://modelcontextprotocol.io" target="_blank" rel="noopener"><span class="key">↗</span><span class="title">Model Context Protocol</span><span class="sub">How the tools above connect to Claude Code.</span></a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <span class="brand-dot small"></span>
+        <span>campaign-os · MIT</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/faaaabio/campaign-os" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/faaaabio/campaign-os/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+        <a href="index.html">Home</a>
+      </div>
+    </footer>
+  </body>
+</html>
