@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#07070a" />
+<title>Campaign OS — Apresentação</title>
+<meta name="description" content="Apresentação da campanha com galeria dos assets. Lê manifest.json e outputs/manifest.json." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%97%89%3C/text%3E%3C/svg%3E" />
+<style>
+:root{
+  --bg:#07070a;--bg-2:#0d0d12;--bg-3:#15151c;--border:#1f1f2a;--border-2:#2a2a38;
+  --text:#f4f4f6;--muted:#8a8a99;--muted-2:#5c5c6b;--accent:#ff5c33;--accent-soft:rgba(255,92,51,.12);
+  --ok:#43d17a;--sans:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(ellipse 90% 40% at 50% -10%,rgba(255,92,51,.10),transparent 60%),
+    radial-gradient(ellipse 70% 30% at 100% 0%,rgba(120,80,255,.06),transparent 60%),
+    var(--bg);
+  color:var(--text);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;
+}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 22px calc(60px + env(safe-area-inset-bottom,0px))}
+
+.brand{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:30px}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(255,92,51,.2),0 0 16px var(--accent)}
+
+/* hero */
+.hero{margin-bottom:34px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h1{font-size:clamp(34px,7vw,66px);letter-spacing:-.035em;line-height:1.02;margin:0 0 18px;font-weight:700}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.badge{font-family:var(--mono);font-size:12px;color:var(--muted);background:var(--bg-2);border:1px solid var(--border);border-radius:999px;padding:7px 13px}
+.badge.status{color:#1a0a04;background:var(--accent);border-color:var(--accent);font-weight:600}
+.badge.status[data-s="launched"]{background:var(--ok);border-color:var(--ok);color:#04140a}
+.badge.status[data-s="draft"]{background:var(--bg-3);color:var(--muted);border-color:var(--border-2)}
+
+/* recap */
+.recap{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:28px 0 8px}
+.cell{background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:16px}
+.cell .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);margin-bottom:8px}
+.cell .v{font-size:14.5px;color:var(--text);word-break:break-word}
+.cell .v.empty{color:var(--muted-2)}
+.docs{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
+.docs a{font-family:var(--mono);font-size:12.5px;color:var(--muted);border:1px solid var(--border-2);border-radius:999px;padding:8px 14px;text-decoration:none;transition:.15s}
+.docs a:hover{color:var(--accent);border-color:var(--accent)}
+
+/* section head */
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin:46px 0 16px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(22px,3.2vw,30px);letter-spacing:-.02em;margin:0;font-weight:700}
+.sec-head .count{font-family:var(--mono);font-size:12px;color:var(--muted-2)}
+
+/* filters */
+.filters{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.frow{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.frow .flabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);margin-right:4px}
+.chip{font-family:var(--mono);font-size:12.5px;color:var(--muted);background:var(--bg-2);border:1px solid var(--border);border-radius:999px;padding:8px 13px;cursor:pointer;transition:.14s}
+.chip:hover{border-color:var(--border-2);color:var(--text)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#1a0a04;font-weight:600}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.card{position:relative;background:var(--bg-2);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:.16s;aspect-ratio:1/1}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card video,.card img{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.card .tag{position:absolute;left:10px;top:10px;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 20px)}
+.card .tag span{font-family:var(--mono);font-size:10px;color:#fff;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);border-radius:5px;padding:3px 7px}
+.card .play{position:absolute;right:10px;bottom:10px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);display:grid;place-items:center;color:#fff;font-size:12px}
+.card .cap{position:absolute;left:0;right:0;bottom:0;padding:24px 12px 10px;font-family:var(--mono);font-size:11px;color:#eaeaf0;background:linear-gradient(transparent,rgba(0,0,0,.75));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* empty / add */
+.empty{text-align:center;padding:50px 20px;border:1px dashed var(--border-2);border-radius:16px;color:var(--muted-2)}
+.empty .big{font-size:38px;color:var(--accent);opacity:.6;margin-bottom:12px}
+.empty p{font-family:var(--mono);font-size:13px;line-height:1.6;margin:0 auto;max-width:50ch}
+.addbtn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;color:var(--text);background:var(--bg-3);border:1px solid var(--border-2);border-radius:999px;padding:10px 16px;cursor:pointer;transition:.15s}
+.addbtn:hover{border-color:var(--accent);color:var(--accent)}
+.note{font-family:var(--mono);font-size:11.5px;color:var(--muted-2);margin-top:14px;line-height:1.5}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:90;background:rgba(5,5,8,.94);display:none;align-items:center;justify-content:center;padding:24px}
+.lb.open{display:flex}
+.lb .media{max-width:min(1000px,92vw);max-height:84vh;display:flex;flex-direction:column;gap:12px;align-items:center}
+.lb video,.lb img{max-width:100%;max-height:78vh;border-radius:12px;background:#000}
+.lb .lbcap{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.lb .x{position:absolute;top:16px;right:18px;width:42px;height:42px;border-radius:12px;border:1px solid var(--border-2);background:var(--bg-2);color:var(--text);font-size:20px;cursor:pointer}
+.lb .nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:1px solid var(--border-2);background:rgba(13,13,18,.8);color:var(--text);font-size:22px;cursor:pointer;display:grid;place-items:center}
+.lb .nav:hover{border-color:var(--accent);color:var(--accent)}
+.lb .prev{left:16px}.lb .next{right:16px}
+.lb .x:hover,.lb .nav:hover{border-color:var(--accent)}
+@media(max-width:560px){.lb .nav{width:40px;height:40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="brand"><span class="dot"></span>campaign-os</span>
+
+  <div class="hero">
+    <p class="eyebrow" id="eyebrow">apresentação da campanha</p>
+    <h1 id="title">—</h1>
+    <div class="meta" id="meta"></div>
+  </div>
+
+  <div class="recap" id="recap"></div>
+  <div class="docs" id="docs"></div>
+
+  <div class="sec-head">
+    <h2>Galeria</h2>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="gallery" id="gallery"></div>
+  <div id="emptyHost"></div>
+  <p class="note" id="note"></p>
+</div>
+
+<div class="lb" id="lb">
+  <button class="x" id="lbx" aria-label="Fechar">✕</button>
+  <button class="nav prev" id="lbprev" aria-label="Anterior">‹</button>
+  <button class="nav next" id="lbnext" aria-label="Próximo">›</button>
+  <div class="media" id="lbmedia"></div>
+</div>
+
+<script>
+(()=>{
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const VIDEO_EXT=["mp4","webm","mov","m4v"],IMG_EXT=["jpg","jpeg","png","webp","gif","avif"];
+
+let ASSETS=[];          // normalized
+let filtered=[];        // after filters
+const filterState={channel:"",beat:""};
+
+/* ---- load manifests (works when served; file:// fetch may fail) ---- */
+async function getJSON(url){try{const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw 0;return await r.json()}catch{return null}}
+
+function normAsset(a){
+  if(typeof a==="string")a={file:a};
+  const file=a.file||a.path||a.src||"";
+  const base=(file.split("/").pop()||"").replace(/\.[^.]+$/,"");
+  const ext=(file.split(".").pop()||"").toLowerCase();
+  const type=a.type||(VIDEO_EXT.includes(ext)?"video":IMG_EXT.includes(ext)?"image":"other");
+  const parts=base.split("_");           // {campaign}_{beat}_{channel}_{format}_{variant}_{model}_v{ver}
+  let src=a.src||file;
+  if(src && !/^https?:|^blob:|^data:|^\.?\/?outputs\//.test(src)) src="outputs/"+src;
+  return {
+    src, type,
+    title:a.title||base||"asset",
+    beat:a.beat||parts[1]||"",
+    channel:a.channel||parts[2]||"",
+    format:a.format||parts[3]||"",
+    model:a.model||parts[5]||"",
+    poster:a.poster?(/^https?:|^blob:|^\.?\/?outputs\//.test(a.poster)?a.poster:"outputs/"+a.poster):"",
+    local:!!a.local
+  };
+}
+
+async function load(){
+  const meta=await getJSON("manifest.json");
+  const out=await getJSON("outputs/manifest.json");
+  renderHeader(meta);
+  if(out&&Array.isArray(out.assets))ASSETS=out.assets.map(normAsset);
+  if(!meta&&!out){
+    $("#note").textContent="Abrindo via arquivo local: o navegador bloqueia a leitura do manifest.json. Sirva a pasta da campanha (ex: python3 -m http.server) ou adicione mídia local abaixo para pré-visualizar.";
+  }
+  renderFilters();applyFilters();
+}
+
+function val(v){return (Array.isArray(v)?v.join(", "):v)||""}
+function renderHeader(meta){
+  meta=meta||{};
+  const id=(meta.campaign_id&&!/^TEMPLATE/.test(meta.campaign_id))?meta.campaign_id:locationId();
+  $("#title").textContent=id||"campanha";
+  document.title="Campaign OS — "+(id||"campanha");
+  const m=$("#meta");m.innerHTML="";
+  const status=(meta.status&&!/^TEMPLATE/.test(meta.status))?meta.status:"draft";
+  m.appendChild(badge(status,"status",status));
+  const client=meta.client&&!/^TEMPLATE/.test(meta.client)?meta.client:"";
+  if(client)m.appendChild(badge(client));
+  (meta.channels||[]).forEach(c=>m.appendChild(badge(c)));
+
+  const cells=[
+    ["sprint",clean(meta.sprint_id)],
+    ["cadência",clean(meta.cadence)],
+    ["idiomas",val(meta.languages)],
+    ["canais",val(meta.channels)],
+    ["kpis",val((meta.kpis&&meta.kpis.leading)||[])],
+    ["notas",clean(meta.notes)],
+  ].filter(([,v])=>v!=="");
+  const r=$("#recap");
+  if(cells.length){r.innerHTML=cells.map(([k,v])=>`<div class="cell"><div class="k">${k}</div><div class="v">${esc(v)}</div></div>`).join("")}
+  else{r.style.display="none"}
+
+  $("#docs").innerHTML=`<a href="brief.md">brief.md</a><a href="story-bible.md">story-bible.md</a><a href="channel-plan.md">channel-plan.md</a><a href="brand/visual-system.md">design system</a>`;
+}
+function clean(v){return (v&&!/^TEMPLATE/.test(String(v)))?v:""}
+function locationId(){const p=location.pathname.split("/").filter(Boolean);const i=p.indexOf("campaigns");return i>=0&&p[i+1]?p[i+1]:""}
+function badge(text,cls,dataS){const b=document.createElement("span");b.className="badge"+(cls?" "+cls:"");if(dataS)b.dataset.s=dataS;b.textContent=text;return b}
+
+/* ---- filters ---- */
+function uniq(key){return [...new Set(ASSETS.map(a=>a[key]).filter(Boolean))]}
+function renderFilters(){
+  const host=$("#filters");host.innerHTML="";
+  const ch=uniq("channel"),bt=uniq("beat");
+  if(!ASSETS.length){host.style.display="none";return}
+  host.style.display="";
+  if(ch.length>1)host.appendChild(filterRow("canais","channel",ch));
+  if(bt.length>1)host.appendChild(filterRow("beats","beat",bt));
+}
+function filterRow(label,key,opts){
+  const row=document.createElement("div");row.className="frow";
+  row.innerHTML=`<span class="flabel">${label}</span>`;
+  const all=chip("todos",filterState[key]==="");all.onclick=()=>{filterState[key]="";applyFilters();renderFilters()};
+  row.appendChild(all);
+  opts.forEach(o=>{const c=chip(o,filterState[key]===o);c.onclick=()=>{filterState[key]=filterState[key]===o?"":o;applyFilters();renderFilters()};row.appendChild(c)});
+  return row;
+}
+function chip(text,on){const b=document.createElement("button");b.className="chip"+(on?" on":"");b.textContent=text;return b}
+
+function applyFilters(){
+  filtered=ASSETS.filter(a=>(!filterState.channel||a.channel===filterState.channel)&&(!filterState.beat||a.beat===filterState.beat));
+  renderGallery();
+}
+
+/* ---- gallery ---- */
+function renderGallery(){
+  const g=$("#gallery"),host=$("#emptyHost");
+  $("#count").textContent=ASSETS.length?(filtered.length+" de "+ASSETS.length+" assets"):"";
+  g.innerHTML="";host.innerHTML="";
+  if(!filtered.length){
+    const e=document.createElement("div");e.className="empty";
+    e.innerHTML=`<div class="big">◍</div><p>${ASSETS.length?"Nenhum asset com esse filtro.":"Ainda sem assets. Eles aparecem aqui conforme a campanha gera os outputs (<code>/generate</code>, <code>/adapt</code>) e entram em <code>outputs/manifest.json</code>."}</p>`;
+    const add=document.createElement("label");add.className="addbtn";add.style.marginTop="18px";
+    add.innerHTML=`+ Adicionar mídia (preview local)<input type="file" accept="video/*,image/*" multiple hidden id="addin">`;
+    e.appendChild(add);host.appendChild(e);
+    wireAdd();
+    return;
+  }
+  filtered.forEach((a,idx)=>{
+    const c=document.createElement("div");c.className="card";c.onclick=()=>openLB(idx);
+    const media=a.type==="video"
+      ? `<video src="${a.src}" muted loop playsinline preload="metadata" ${a.poster?`poster="${a.poster}"`:""}></video><div class="play">▶</div>`
+      : `<img src="${a.src}" alt="${esc(a.title)}" loading="lazy">`;
+    const tags=[a.channel,a.beat].filter(Boolean).map(t=>`<span>${esc(t)}</span>`).join("");
+    c.innerHTML=media+(tags?`<div class="tag">${tags}</div>`:"")+`<div class="cap">${esc(a.title)}</div>`;
+    const v=c.querySelector("video");
+    if(v){c.onmouseenter=()=>v.play().catch(()=>{});c.onmouseleave=()=>{v.pause();v.currentTime=0}}
+    g.appendChild(c);
+  });
+  // trailing add tile
+  const addCard=document.createElement("label");addCard.className="card";addCard.style.display="grid";addCard.style.placeItems="center";addCard.style.cursor="pointer";addCard.style.color="var(--muted-2)";addCard.style.fontFamily="var(--mono)";addCard.style.fontSize="13px";
+  addCard.innerHTML=`+ mídia local<input type="file" accept="video/*,image/*" multiple hidden id="addin">`;
+  g.appendChild(addCard);wireAdd();
+}
+function wireAdd(){
+  const inp=$("#addin");if(!inp)return;
+  inp.addEventListener("change",e=>{
+    [...e.target.files].forEach(f=>{
+      const url=URL.createObjectURL(f);
+      ASSETS.push(normAsset({file:f.name,src:url,type:f.type.startsWith("video")?"video":"image",title:f.name,local:true}));
+    });
+    renderFilters();applyFilters();
+  });
+}
+
+/* ---- lightbox ---- */
+let lbi=0;
+function openLB(i){lbi=i;drawLB();$("#lb").classList.add("open")}
+function closeLB(){$("#lb").classList.remove("open");$("#lbmedia").innerHTML=""}
+function step(d){lbi=(lbi+d+filtered.length)%filtered.length;drawLB()}
+function drawLB(){
+  const a=filtered[lbi];const host=$("#lbmedia");
+  host.innerHTML=(a.type==="video"
+    ? `<video src="${a.src}" controls autoplay loop playsinline ${a.poster?`poster="${a.poster}"`:""}></video>`
+    : `<img src="${a.src}" alt="${esc(a.title)}">`)
+    +`<div class="lbcap">${esc(a.title)}${a.model?" · "+esc(a.model):""}</div>`;
+}
+$("#lbx").onclick=closeLB;$("#lbprev").onclick=()=>step(-1);$("#lbnext").onclick=()=>step(1);
+$("#lb").addEventListener("click",e=>{if(e.target.id==="lb")closeLB()});
+document.addEventListener("keydown",e=>{if(!$("#lb").classList.contains("open"))return;if(e.key==="Escape")closeLB();if(e.key==="ArrowLeft")step(-1);if(e.key==="ArrowRight")step(1)});
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+load();
+})();
+</script>
+</body>
+</html>

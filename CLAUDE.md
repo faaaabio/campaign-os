@@ -93,8 +93,11 @@ Every campaign lives at `campaigns/{id}/` with this layout:
 ├── wrapper/          # HyperFrames templates for this campaign
 ├── brand/            # logo behavior, type, paleta for this campaign
 ├── outputs/          # final renders, tagged
+├── presentation.html # campaign presentation + asset gallery (reads the manifests)
 └── retro.md          # D7 retrospective
 ```
+
+Every campaign ships with `presentation.html` — a self-contained page that reads `manifest.json` + `outputs/manifest.json` and renders the campaign hero, recap, and a filterable gallery (with lightbox) of the tagged outputs. Serve the campaign folder to view it.
 
 Read `playbooks/methodology.md` for the full CAL specification.
 
