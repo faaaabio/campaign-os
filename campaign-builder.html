@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#07070a" />
+<title>Campaign OS — Criar campanha</title>
+<meta name="description" content="Assistente guiado para criar uma campanha do Campaign OS: presets em chips a cada etapa, gera o brief.md e a sequência de comandos." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%97%89%3C/text%3E%3C/svg%3E" />
+<style>
+:root{
+  --bg:#07070a; --bg-2:#0d0d12; --bg-3:#15151c;
+  --border:#1f1f2a; --border-2:#2a2a38;
+  --text:#f4f4f6; --muted:#8a8a99; --muted-2:#5c5c6b;
+  --accent:#ff5c33; --accent-soft:rgba(255,92,51,.12);
+  --ok:#43d17a;
+  --sans:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(ellipse 90% 40% at 50% -10%,rgba(255,92,51,.10),transparent 60%),
+    radial-gradient(ellipse 70% 30% at 100% 0%,rgba(120,80,255,.06),transparent 60%),
+    var(--bg);
+  color:var(--text); font-family:var(--sans); line-height:1.55;
+  -webkit-font-smoothing:antialiased; min-height:100vh;
+}
+.wrap{max-width:560px;margin:0 auto;padding:28px 20px calc(40px + env(safe-area-inset-bottom,0px));min-height:100vh;display:flex;flex-direction:column}
+
+/* brand */
+.brand{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:26px}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(255,92,51,.2),0 0 16px var(--accent)}
+
+/* progress */
+.progress{display:flex;gap:6px;margin-bottom:24px}
+.progress .seg{height:4px;flex:1;border-radius:999px;background:var(--bg-3);overflow:hidden}
+.progress .seg.done{background:var(--accent)}
+.progress .seg.cur{background:linear-gradient(90deg,var(--accent),#ff8a66)}
+
+/* head */
+.head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.back{width:36px;height:36px;flex:none;border-radius:10px;border:1px solid var(--border-2);background:var(--bg-2);color:var(--text);font-size:20px;line-height:1;cursor:pointer;transition:.14s}
+.back:hover{border-color:var(--accent);color:var(--accent)}
+.back[hidden]{display:none}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(26px,6vw,34px);letter-spacing:-.03em;margin:2px 0 8px;line-height:1.1}
+.hint{color:var(--muted);font-size:14.5px;margin:0 0 22px;max-width:46ch}
+
+/* step body */
+.step{flex:1;animation:rise .22s ease}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.field{margin-bottom:18px}
+.label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);margin-bottom:10px}
+.label .opt{text-transform:none;letter-spacing:0;color:var(--muted-2)}
+input.txt{width:100%;background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:15px 16px;color:var(--text);font-family:var(--mono);font-size:16px;outline:none;transition:.15s}
+input.txt:focus{border-color:var(--accent)}
+input.txt::placeholder{color:var(--muted-2)}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{font-family:var(--mono);font-size:13px;color:var(--muted);background:var(--bg-2);border:1px solid var(--border);border-radius:999px;padding:11px 16px;cursor:pointer;transition:.14s;user-select:none}
+.chip:hover{border-color:var(--border-2);color:var(--text)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#1a0a04;font-weight:600}
+.chip.preset{border-style:dashed}
+.chip.preset:hover{border-style:solid;border-color:var(--accent);color:var(--accent)}
+.chip.preset.on{border-style:solid;background:var(--accent);color:#1a0a04}
+.sub{font-size:12.5px;color:var(--muted-2);margin:10px 0 0}
+
+/* nav */
+.nav{display:flex;gap:10px;margin-top:26px}
+.btn{flex:1;padding:14px;border-radius:12px;border:1px solid var(--border-2);background:var(--bg-3);color:var(--text);font-family:var(--sans);font-size:15px;font-weight:600;cursor:pointer;transition:.15s}
+.btn:hover:not(:disabled){border-color:#4a4a5c;background:#1c1c26}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a0a04}
+.btn.primary:hover:not(:disabled){background:#ff734d;border-color:#ff734d;box-shadow:0 8px 26px rgba(255,92,51,.3)}
+
+/* summary */
+.out{margin-bottom:16px}
+.out h3{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin:0 0 10px}
+.code{position:relative;background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:16px 16px;font-family:var(--mono);font-size:13px;line-height:1.7;color:#d4d4d8;white-space:pre-wrap;word-break:break-word;overflow-x:auto}
+.code .c{color:var(--muted-2)}
+.copy{position:absolute;top:10px;right:10px;font-family:var(--mono);font-size:11px;font-weight:600;color:#1a0a04;background:var(--accent);border:none;border-radius:7px;padding:7px 10px;cursor:pointer;transition:.15s}
+.copy:hover{background:#ff734d}
+.copy.done{background:var(--ok);color:#04140a}
+.recap{display:grid;gap:6px;margin-bottom:18px}
+.recap .row{display:flex;gap:10px;font-size:13.5px;border-bottom:1px solid var(--border);padding:9px 2px}
+.recap .row:last-child{border-bottom:none}
+.recap .k{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-2);width:84px;flex:none;padding-top:2px}
+.recap .v{color:var(--text)}
+.recap .v.empty{color:var(--muted-2)}
+
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);font-family:var(--mono);font-size:13px;font-weight:600;padding:10px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:80}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="brand"><span class="dot"></span>campaign-os</span>
+
+  <div class="progress" id="progress"></div>
+
+  <div class="head">
+    <button class="back" id="back" aria-label="Voltar" hidden>‹</button>
+    <div>
+      <span class="eyebrow" id="eyebrow">Etapa 1</span>
+    </div>
+  </div>
+  <h1 id="title">Campanha</h1>
+  <p class="hint" id="hint"></p>
+
+  <div class="step" id="step"></div>
+
+  <div class="nav" id="nav"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(()=>{
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+
+const CHANNELS=["tiktok","reels","yt-shorts","yt","meta-feed","stories","pinterest","linkedin","x","threads","whatsapp","kwai","snapchat","twitch","spotify","ctv","ooh","email"];
+const CHANNEL_BUNDLES={
+  "Shorts verticais":["tiktok","reels","yt-shorts","kwai"],
+  "Meta":["meta-feed","stories","reels"],
+  "Profissional":["linkedin","yt","x"],
+  "Mídia paga":["meta-feed","ctv","ooh"],
+  "Conversa / CRM":["whatsapp","email"],
+  "Tudo":[...CHANNELS]
+};
+
+const STEPS=[
+  {key:"id",title:"Campanha",eyebrow:"Identidade",hint:"Dê um id à campanha. Use os chips para anexar período ou tipo.",
+   type:"text",placeholder:"ex: nike-q3-launch",
+   presets:["q1","q2","q3","q4","launch","teaser","reveal","always-on","blackfriday","natal","verao","inverno","promo","brand","hero","social","global","v2"]},
+  {key:"objetivo",title:"Objetivo",hint:"Qual o objetivo principal da campanha?",
+   type:"single",opts:["Lançamento","Awareness","Consideração","Performance / conversão","Geração de leads","Engajamento","Tráfego","Retenção / fidelização","Reposicionamento","Sazonal","Branding"]},
+  {key:"produto",title:"Produto",hint:"Qual a natureza do que está sendo anunciado?",
+   type:"single",opts:["Produto físico","App / software","Serviço","Assinatura","Plataforma","Evento","Coleção","Conteúdo / mídia","Experiência"]},
+  {key:"setor",title:"Setor",hint:"Em que indústria a campanha vive?",
+   type:"single",opts:["Moda","Beleza","Tech","Alimentos & bebidas","Varejo","Finanças","Saúde & bem-estar","Educação","Games","Automotivo","Viagem & turismo","Esporte","Entretenimento","Imobiliário"]},
+  {key:"tom",title:"Tom",hint:"Escolha um ou mais tons para a direção criativa.",
+   type:"multi",opts:["Cinematográfico","Minimalista","Divertido","Sofisticado","Energético","Emocional","Ousado","Aspiracional","Nostálgico","Autêntico","Provocativo","Futurista","Caloroso","Urbano","Artesanal","Premium"]},
+  {key:"referencias",title:"Referências",hint:"Referências de linguagem / mood. Marque quantas quiser.",
+   type:"multi",opts:["A24 / indie","Editorial de moda","Documentário","Apple / clean","Nike / esporte","Wes Anderson","Cyberpunk","Y2K","Vintage 90s","Lo-fi","Streetwear / hype","Luxo editorial","Sci-fi","Brutalista","Sonho / surreal"]},
+  {key:"estilos",title:"Estilos",hint:"Estilos visuais para os shots. Marque um ou mais.",
+   type:"multi",opts:["Film grain","Neon","Pastel","Preto & branco","Alto contraste","Slow motion","Macro / detalhe","Aéreo / drone","Stop motion","3D / CGI","Glitch","Duotone","Golden hour","Estúdio limpo","Handheld"]},
+  {key:"publico",title:"Público",hint:"Para quem é a campanha? Pode marcar mais de um.",
+   type:"multi",opts:["Gen Z","Millennials","Gen X","Boomers","Famílias","Pais & mães","Estudantes","Profissionais B2B","Pequenos negócios","Criativos","Entusiastas / nicho","Público local","Audiência global","Premium / luxo"]},
+  {key:"canais",title:"Canais",hint:"Onde a campanha será distribuída. Use um pacote ou escolha avulso.",
+   type:"channels"},
+  {key:"prazo",title:"Prazo",hint:"Qual a cadência da produção?",
+   type:"single",opts:["Sprint 1 semana","2 semanas","Relâmpago (3 dias)"]},
+  {key:"resumo",title:"Tudo pronto",eyebrow:"Resumo",hint:"Copie o brief e a sequência de comandos para o Claude Code.",
+   type:"summary"},
+];
+
+const state=load();
+let i=state._i||0;
+
+function load(){try{return JSON.parse(localStorage.getItem("cob"))||{}}catch{return {}}}
+function save(){try{state._i=i;localStorage.setItem("cob",JSON.stringify(state))}catch{}}
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("show"),1600)}
+function slug(s){return (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")}
+
+function go(n){i=Math.max(0,Math.min(STEPS.length-1,n));save();render()}
+
+function render(){
+  const s=STEPS[i];
+  // progress
+  $("#progress").innerHTML=STEPS.map((_,k)=>`<span class="seg ${k<i?"done":k===i?"cur":""}"></span>`).join("");
+  $("#eyebrow").textContent=s.eyebrow||("Etapa "+(i+1));
+  $("#title").textContent=s.title;
+  $("#hint").textContent=s.hint||"";
+  $("#back").hidden=i===0;
+  const step=$("#step");step.innerHTML="";
+  const nav=$("#nav");nav.innerHTML="";
+
+  if(s.type==="text"){
+    const f=document.createElement("div");f.className="field";
+    f.innerHTML=`<label class="label">campaign id</label>`;
+    const inp=document.createElement("input");inp.className="txt";inp.value=state.id||"";inp.placeholder=s.placeholder;
+    inp.spellcheck=false;inp.autocomplete="off";
+    inp.addEventListener("input",()=>{state.id=slug(inp.value);if(inp.value!==state.id)inp.value=state.id;save();syncIdChips();updateNav()});
+    f.appendChild(inp);
+    const lab=document.createElement("label");lab.className="label";lab.style.marginTop="16px";lab.innerHTML=`anexar <span class="opt">(toque para adicionar)</span>`;
+    const chips=document.createElement("div");chips.className="chips";chips.id="idchips";
+    s.presets.forEach(p=>{
+      const c=document.createElement("button");c.className="chip preset";c.textContent="+ "+p;c.dataset.tok=p;
+      c.addEventListener("click",()=>{
+        const tok="-"+p;state.id=slug((state.id||"")+ (state.id?tok:p));
+        inp.value=state.id;save();syncIdChips();updateNav();
+      });
+      chips.appendChild(c);
+    });
+    step.appendChild(f);step.appendChild(lab);step.appendChild(chips);
+    navContinue();
+    syncIdChips();
+  }
+
+  else if(s.type==="single"){
+    const chips=document.createElement("div");chips.className="chips";
+    s.opts.forEach(o=>{
+      const c=document.createElement("button");c.className="chip";c.textContent=o;
+      if(state[s.key]===o)c.classList.add("on");
+      c.addEventListener("click",()=>{state[s.key]=o;save();render();setTimeout(()=>go(i+1),200)});
+      chips.appendChild(c);
+    });
+    step.appendChild(chips);
+    navContinue();
+  }
+
+  else if(s.type==="multi"){
+    state[s.key]=state[s.key]||[];
+    const chips=document.createElement("div");chips.className="chips";
+    s.opts.forEach(o=>{
+      const c=document.createElement("button");c.className="chip";c.textContent=o;
+      if(state[s.key].includes(o))c.classList.add("on");
+      c.addEventListener("click",()=>{
+        state[s.key]=state[s.key].includes(o)?state[s.key].filter(x=>x!==o):[...state[s.key],o];
+        c.classList.toggle("on");save();updateNav();
+      });
+      chips.appendChild(c);
+    });
+    step.appendChild(chips);
+    navContinue();
+  }
+
+  else if(s.type==="channels"){
+    state.canais=state.canais||[];
+    const lb=document.createElement("label");lb.className="label";lb.innerHTML=`pacotes <span class="opt">(aplicam vários)</span>`;
+    const bundles=document.createElement("div");bundles.className="chips";
+    Object.entries(CHANNEL_BUNDLES).forEach(([name,list])=>{
+      const c=document.createElement("button");c.className="chip preset";c.textContent=name;
+      c.addEventListener("click",()=>{state.canais=[...list];save();render()});
+      bundles.appendChild(c);
+    });
+    const lb2=document.createElement("label");lb2.className="label";lb2.style.marginTop="16px";lb2.textContent="canais";
+    const chips=document.createElement("div");chips.className="chips";
+    CHANNELS.forEach(ch=>{
+      const c=document.createElement("button");c.className="chip";c.textContent=ch;
+      if(state.canais.includes(ch))c.classList.add("on");
+      c.addEventListener("click",()=>{
+        state.canais=state.canais.includes(ch)?state.canais.filter(x=>x!==ch):[...state.canais,ch];
+        c.classList.toggle("on");save();updateNav()});
+      chips.appendChild(c);
+    });
+    step.appendChild(lb);step.appendChild(bundles);step.appendChild(lb2);step.appendChild(chips);
+    navContinue();
+  }
+
+  else if(s.type==="summary"){
+    const id=state.id||"minha-campanha";
+    const recap=[
+      ["objetivo",state.objetivo],
+      ["produto",state.produto],
+      ["setor",state.setor],
+      ["tom",(state.tom||[]).join(", ")],
+      ["referências",(state.referencias||[]).join(", ")],
+      ["estilos",(state.estilos||[]).join(", ")],
+      ["público",(state.publico||[]).join(", ")],
+      ["canais",(state.canais||[]).join(", ")],
+      ["prazo",state.prazo],
+    ];
+    const r=document.createElement("div");r.className="recap";
+    r.innerHTML=recap.map(([k,v])=>`<div class="row"><span class="k">${k}</span><span class="v ${v?"":"empty"}">${v||"—"}</span></div>`).join("");
+    step.appendChild(r);
+
+    const brief=briefMd(id);
+    const cmds=commands(id);
+    step.appendChild(block("brief.md",brief));
+    step.appendChild(block("comandos (Claude Code)",cmds));
+
+    const restart=document.createElement("button");restart.className="btn";restart.textContent="Recomeçar";
+    restart.addEventListener("click",()=>{for(const k in state)delete state[k];i=0;save();render()});
+    nav.appendChild(restart);
+    const top=document.createElement("button");top.className="btn primary";top.textContent="Copiar tudo";
+    top.addEventListener("click",()=>copy(brief+"\n\n"+cmds,top));
+    nav.appendChild(top);
+  }
+
+  if(s.type==="text")setTimeout(()=>{const el=$("input.txt");el&&el.focus()},30);
+  $("#back").onclick=()=>go(i-1);
+}
+
+function navContinue(){
+  const nav=$("#nav");
+  const b=document.createElement("button");b.className="btn primary";b.id="cont";
+  b.textContent=i===STEPS.length-2?"Ver resumo":"Continuar";
+  b.addEventListener("click",()=>go(i+1));
+  nav.appendChild(b);
+  updateNav();
+}
+function updateNav(){
+  const s=STEPS[i],b=$("#cont");if(!b)return;
+  let ok=true;
+  if(s.type==="text")ok=!!(state.id&&state.id.length>=2);
+  else if(s.type==="multi")ok=(state[s.key]||[]).length>0;
+  else if(s.type==="channels")ok=(state.canais||[]).length>0;
+  b.disabled=!ok;
+}
+function syncIdChips(){
+  const wrap=$("#idchips");if(!wrap)return;
+  const parts=(state.id||"").split("-");
+  [...wrap.children].forEach(c=>c.classList.toggle("on",parts.includes(c.dataset.tok)));
+}
+
+function briefMd(id){
+  const L=[];
+  L.push("# Brief — "+id);
+  L.push("");
+  L.push("- Objetivo: "+(state.objetivo||""));
+  L.push("- Produto: "+(state.produto||""));
+  L.push("- Setor: "+(state.setor||""));
+  L.push("- Tom: "+((state.tom||[]).join(", ")));
+  L.push("- Referências: "+((state.referencias||[]).join(", ")));
+  L.push("- Estilos: "+((state.estilos||[]).join(", ")));
+  L.push("- Público: "+((state.publico||[]).join(", ")));
+  L.push("- Canais: "+((state.canais||[]).join(", ")));
+  L.push("- Prazo: "+(state.prazo||""));
+  return L.join("\n");
+}
+function commands(id){
+  const ch=(state.canais||[]).join(",");
+  const L=[];
+  L.push("# 1 — cria a campanha + brief");
+  L.push("/sprint-start "+id);
+  L.push("/brief");
+  L.push("");
+  L.push("# 2 — produção");
+  L.push("/shot-list");
+  L.push("/generate b01");
+  L.push("/adapt b01"+(ch?" --channels="+ch:""));
+  L.push("");
+  L.push("# 3 — pós-launch");
+  L.push("/measure");
+  L.push("/retro");
+  return L.join("\n");
+}
+function block(title,text){
+  const w=document.createElement("div");w.className="out";
+  const h=document.createElement("h3");h.textContent=title;
+  const pre=document.createElement("div");pre.className="code";
+  pre.innerHTML=text.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])).replace(/^(#.*)$/gm,'<span class="c">$1</span>');
+  const cp=document.createElement("button");cp.className="copy";cp.textContent="Copiar";
+  cp.addEventListener("click",()=>copy(text,cp));
+  pre.appendChild(cp);
+  w.appendChild(h);w.appendChild(pre);return w;
+}
+async function copy(text,btn){
+  try{await navigator.clipboard.writeText(text)}catch{
+    const t=document.createElement("textarea");t.value=text;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();try{document.execCommand("copy")}catch{}t.remove();
+  }
+  if(btn){const p=btn.textContent;btn.textContent="Copiado ✓";btn.classList.add("done");setTimeout(()=>{btn.textContent=p;btn.classList.remove("done")},1300)}
+  toast("Copiado ✓");
+}
+
+render();
+})();
+</script>
+</body>
+</html>
