@@ -75,9 +75,17 @@ If the campaign sits in any of these categories, run additional review:
 
 - [ ] No warped faces visible in final 24fps motion
 - [ ] No extra/missing fingers visible at 1x playback speed
-- [ ] No text artifacts (any visible text reads correctly or is intentionally obscured)
 - [ ] No flickering between frames (Seedance occasionally produces this)
 - [ ] No logo distortions on the brand's own product
+
+### Section 7b — No burned-in text or logos (hard fail)
+
+See `CLAUDE.md` → "No burned-in text or logos". Diffusion output is clean plates; all text/logos are HyperFrames layers from `brand/visual-system.md`.
+
+- [ ] **No model-rendered (burned-in) text anywhere in the frame** — headlines, CTAs, captions, lower-thirds, price/legal copy, or signage text must be composited in HyperFrames, never baked by Seedance/Soul/Nano Banana
+- [ ] **No model-rendered logo or brand mark** — on the product, on signage, or in the background. Logos are HyperFrames layers pulled from the design system, never painted by the model
+- [ ] Any on-screen copy in the final deliverable comes from the wrapper, reads correctly, and matches the locked type system
+- [ ] Wrapper templates reference `visual-system.md` tokens (no hardcoded brand values)
 
 ### Section 8 — Channel-specific platform rules
 
@@ -93,6 +101,7 @@ After running the checklist:
 | Result | Action |
 |---|---|
 | All items pass | Sign-off, proceed to Motion adaptations |
+| Burned-in text or logo in a render | HARD FAIL — return to DP for a clean plate; Motion composites the text/logo via HyperFrames from `visual-system.md` |
 | 1-2 minor flags (artifact-level) | Return to DP for re-render of affected beats |
 | Claims/IP/likeness flag | Return to Showrunner for rewording; legal review if needed |
 | Sensitive category flag without specialist sign-off | HALT — escalate to senior creative + legal |

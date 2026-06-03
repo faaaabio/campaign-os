@@ -63,10 +63,21 @@ professional color grading, sharp focus, high detail texture, film stock languag
 {film stock reference: Kodak Portra 400 | Fuji 8553 | digital ARRI clean}
 
 [NEGATIVES]
+no text, no captions, no subtitles, no signage copy, no UI overlays,
+no logos, no brand marks, no watermark,
 no warping faces, no extra fingers, no plastic skin,
-no logo distortion, no text artifacts,
 {campaign-specific negatives}
 ```
+
+## Clean plates only — no text, no logos (non-negotiable)
+
+Seedance (and every Higgsfield model) renders **clean plates**. Never prompt for on-screen text or a logo — diffusion text is unreliable and unversioned, and logos must be exact. All text and brand elements are composited downstream in HyperFrames, from the locked design system.
+
+- Always carry the text/logo negatives shown in the base template above.
+- In `[COMPOSITION]`, leave deliberate negative space (a clean lower third, an unbranded product face, blank signage) where Motion will place copy and the logo.
+- If a beat says "a sign reads X" or "logo on the box", render it **blank/clean** and flag it for Motion in the beat file — do not ask the model to write the text or draw the mark.
+
+See `CLAUDE.md` → "No burned-in text or logos". The `brand-safety-check` gate is a hard fail for any render with baked-in text or a logo.
 
 ## Prompt modes — choosing and structuring
 

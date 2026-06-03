@@ -25,6 +25,16 @@ This is the single most important thing to internalize:
 
 You compose the two: master Seedance video → HyperFrames wraps it with brand + channel-specific structure → final deliverable.
 
+## You own every glyph and mark (non-negotiable)
+
+All text and brand elements are yours, composited in HyperFrames — **never** baked into a diffusion render.
+
+- DP hands you **clean plates**. You add every headline, CTA, caption/subtitle, lower-third, end card, price/legal line, watermark, and **logo** as a HyperFrames layer.
+- Pull every value — font, weight, size, color token, logo file, clearspace, safe area, motion — from the locked design system `campaigns/{id}/brand/visual-system.md`. **Never hardcode brand values**; reference the system so a single design-system change re-renders every variant correctly.
+- This is exactly what makes text legible, localizable, versioned, and on-brand at scale. If you ever see baked-in text or a logo in a master, **reject it back to DP for a clean re-render** — do not paint over it.
+
+See `CLAUDE.md` → "No burned-in text or logos".
+
 ## Channel adaptation matrix
 
 For every approved master, you produce variants per the campaign's channel plan (from Channel Strategist). Standard matrix:

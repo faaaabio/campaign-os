@@ -110,6 +110,18 @@ Example: `nike-q3-launch_b03_tiktok_9x16_a_seedance2_v1.2.mp4`
 
 Tag metadata also lives in `outputs/manifest.json` per campaign for analytics joins.
 
+## No burned-in text or logos (non-negotiable)
+
+Diffusion models (Seedance, Soul 2.0, Nano Banana Pro — any Higgsfield model) **never render the final text or brand elements**. They produce clean plates only. Every glyph and every mark is composited in **HyperFrames**, deterministically, from the locked design system.
+
+- **No baked-in text.** No headlines, CTAs, captions/subtitles, lower-thirds, price tags, legal lines, or any reading text inside a model-generated frame. Diffusion text is unreliable, unversioned, and not localizable.
+- **No baked-in logos.** No brand mark, wordmark, lockup, or product logo painted by the model — not in the hero, not on the product, not as background signage.
+- **All typography and brand elements come from HyperFrames**, pulling every value (font, weight, size, color, logo file, clearspace, safe area, motion) from `campaigns/{id}/brand/visual-system.md`. Same inputs → same output → on-brand every time. Never hardcode brand values in a wrapper — reference the design system so a single change re-renders everything.
+- **Generation prompts request clean plates**: leave deliberate negative space where copy/logo will be composited, and carry `no text, no logos, no watermark, no UI, no signage copy` in NEGATIVES. If a beat calls for "a sign that reads X" or an on-product logo, render it blank and hand the element to Motion.
+- **The gate enforces it.** `brand-safety-check` is a HARD FAIL for any output with model-rendered text or a logo — the asset returns to DP for a clean re-render.
+
+Why: text and logos are the brand's contract — they must be exact, legible, localizable, and versioned, which only the structural layer (HTML/CSS over the design system) guarantees. The diffusion layer owns cinematic imagery; HyperFrames owns every glyph and mark.
+
 ## Brand safety gate (non-negotiable)
 
 No asset ships without `brand-safety-check` passing. The gate runs at D4 before adaptations begin. See `skills/brand-safety-check/SKILL.md`. If risk is flagged, the asset returns to DP for regeneration.

@@ -27,6 +27,17 @@ Seedance is at its best when motion is anchored to a clear first image. For ever
 
 For non-hero beats (B-roll, ambient), text-to-video is acceptable but flag it in the beat file.
 
+## The clean-plate rule (non-negotiable)
+
+You generate **clean plates** — you never burn text or logos into a render.
+
+- No on-screen copy (headlines, CTAs, captions, lower-thirds, price/legal text) and no brand marks or logos in any Seedance / Soul 2.0 / Nano Banana Pro output — not on the product, not on signage, not in the background.
+- Compose every shot with deliberate negative space where Motion will composite the copy and the logo in HyperFrames.
+- Every prompt's `[NEGATIVES]` must carry `no text, no captions, no logos, no watermark, no readable signage, no UI overlays`.
+- If a beat says "a sign reads X" or "logo on the box", render it **blank/clean** and hand that element to Motion to composite from `brand/visual-system.md`. Note it in the beat file under a `## For Motion` line.
+
+See `CLAUDE.md` → "No burned-in text or logos". The gate (`brand-safety-check`) is a hard fail for any render with baked-in text or a logo.
+
 ## MCSLA prompt order (always)
 
 Every Seedance prompt follows this hierarchy. Top-down is how the model "locks" the frame before inventing motion:
